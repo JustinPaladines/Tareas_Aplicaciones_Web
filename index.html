@@ -90,16 +90,23 @@
 
         <label for="mensaje">Mensaje</label>
         <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe un mensaje..." required></textarea>
-
+        <p>Caracteres: <span id="contador">0</span></p>
+        
         <button id="btnEnviar" type="submit">Enviar al backend</button>
       </form>
       <div id="estado" class="estado"></div>
     </section>
 
     <section class="card">
-      <h2>Mensajes</h2>
-      <button id="btnCargar">Cargar mensajes demo</button>
-      <div id="listaMensajes"></div>
+    <h2>Mensajes</h2>
+
+    <button id="btnCargar">Cargar mensajes demo</button>
+
+    <button id="btnLimpiar" style="margin-top:10px; background:#dc2626;">
+      Limpiar mensajes
+    </button>
+
+    <div id="listaMensajes"></div>
     </section>
   </main>
 
@@ -109,6 +116,7 @@
     const listaMensajes = document.getElementById("listaMensajes");
     const btnEnviar = document.getElementById("btnEnviar");
     const btnCargar = document.getElementById("btnCargar");
+    const btnLimpiar = document.getElementById("btnLimpiar");
 
     const API_BASE = "/api";
 
@@ -182,6 +190,17 @@
     });
 
     btnCargar.addEventListener("click", cargarMensajes);
+    btnLimpiar.addEventListener("click", () => {
+      listaMensajes.innerHTML = "";
+    });
+  </script>
+  <script>
+    const mensaje = document.getElementById("mensaje");
+    const contador = document.getElementById("contador");
+
+    mensaje.addEventListener("input", () => {
+      contador.textContent = mensaje.value.length;
+    });
   </script>
 </body>
 </html>

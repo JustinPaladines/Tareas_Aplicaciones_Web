@@ -1,4 +1,4 @@
 node_modules
 .netlify
 .env
-.DS_Store
+.DS_Storegit commit -m "Taller fullstack con Netlify"
