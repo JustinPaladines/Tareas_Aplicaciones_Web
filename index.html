@@ -91,7 +91,7 @@
         <label for="mensaje">Mensaje</label>
         <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe un mensaje..." required></textarea>
         <p>Caracteres: <span id="contador">0</span></p>
-        
+
         <button id="btnEnviar" type="submit">Enviar al backend</button>
       </form>
       <div id="estado" class="estado"></div>
@@ -119,6 +119,14 @@
     const btnLimpiar = document.getElementById("btnLimpiar");
 
     const API_BASE = "/api";
+
+    function obtenerMensajesGuardados() {
+      return JSON.parse(localStorage.getItem("mensajes")) || [];
+    }
+
+    function guardarMensajes(mensajes) {
+      localStorage.setItem("mensajes", JSON.stringify(mensajes));
+    }
 
     function mostrarEstado(texto, tipo) {
       estado.textContent = texto;
@@ -148,6 +156,7 @@
 
         listaMensajes.innerHTML = "";
         result.data.forEach(renderMensaje);
+        guardarMensajes(result.data);
       } catch (error) {
         listaMensajes.innerHTML = `<p style="color:red">${error.message}</p>`;
       }
@@ -180,6 +189,11 @@
 
         mostrarEstado(result.message, "ok");
         renderMensaje(result.data);
+
+        const mensajes = obtenerMensajesGuardados();
+        mensajes.unshift(result.data);
+        guardarMensajes(mensajes);
+
         form.reset();
       } catch (error) {
         mostrarEstado(error.message, "error");
@@ -189,9 +203,16 @@
       }
     });
 
+    const mensajesGuardados = obtenerMensajesGuardados();
+
+    if (mensajesGuardados.length > 0) {
+    mensajesGuardados.forEach(renderMensaje);
+    }
+
     btnCargar.addEventListener("click", cargarMensajes);
     btnLimpiar.addEventListener("click", () => {
       listaMensajes.innerHTML = "";
+      localStorage.removeItem("mensajes");
     });
   </script>
   <script>
