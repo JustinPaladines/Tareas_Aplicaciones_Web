@@ -8,7 +8,7 @@
 
  
  
-Se registran 3 usuarios, en pestañas, en este caso navegadores diferentes:
+<strong> Se registran 3 usuarios, en pestañas, en este caso navegadores diferentes: </strong>
 
  <img width="608" height="319" alt="image" src="https://github.com/user-attachments/assets/daec8452-41a2-427e-8bd6-2c9a7dfea2cc" />
 
